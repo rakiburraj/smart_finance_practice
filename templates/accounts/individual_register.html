@@ -1,9 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block body_class %}auth-page{% endblock %}
-
-
 {% block content %}
 
 <section class="auth-section">
@@ -11,7 +8,7 @@
     <div class="row justify-content-center">
       <div class="col-lg-7 col-md-9">
 
-        <!-- HEADER -->
+        <!-- HEADER (same as company style) -->
         <div class="text-center mb-4">
           <div class="auth-icon blue">
             <i class="bi bi-person-fill"></i>
@@ -29,60 +26,114 @@
             <div class="row g-3 mb-3">
               <div class="col-md-6">
                 <label class="auth-label">First Name</label>
-                <input type="text" name="first_name" class="form-control" placeholder="John" required>
+                <div class="input-group">
+                  <span class="input-group-text auth-input-icon">
+                    <i class="bi bi-person"></i>
+                  </span>
+                  <input type="text" name="first_name" class="form-control" placeholder="John" required>
+                </div>
               </div>
+
               <div class="col-md-6">
                 <label class="auth-label">Last Name</label>
-                <input type="text" name="last_name" class="form-control" placeholder="Doe" required>
+                <div class="input-group">
+                  <span class="input-group-text auth-input-icon">
+                    <i class="bi bi-person-badge"></i>
+                  </span>
+                  <input type="text" name="last_name" class="form-control" placeholder="Doe" required>
+                </div>
               </div>
             </div>
 
             <!-- EMAIL -->
             <div class="mb-3">
               <label class="auth-label">Email</label>
-              <input type="email" name="email" class="form-control" placeholder="john@example.com" required>
+              <div class="input-group">
+                <span class="input-group-text auth-input-icon">
+                  <i class="bi bi-envelope"></i>
+                </span>
+                <input type="email" name="email" class="form-control" placeholder="john@example.com" required>
+              </div>
             </div>
 
             <!-- PROFESSION -->
             <div class="mb-3">
               <label class="auth-label">Profession</label>
-              <input type="text" name="profession" class="form-control" placeholder="Software Engineer">
+              <div class="input-group">
+                <span class="input-group-text auth-input-icon">
+                  <i class="bi bi-briefcase"></i>
+                </span>
+                <input type="text" name="profession" class="form-control" placeholder="Software Engineer">
+              </div>
             </div>
 
             <!-- INCOME SOURCE -->
             <div class="mb-3">
               <label class="auth-label">Income Source</label>
-              <input type="text" name="income_source" class="form-control" placeholder="Salary / Freelance">
+              <div class="input-group">
+                <span class="input-group-text auth-input-icon">
+                  <i class="bi bi-cash-stack"></i>
+                </span>
+                <input type="text" name="income_source" class="form-control" placeholder="Salary / Freelance">
+              </div>
             </div>
 
             <!-- INCOME + EXPENSE -->
             <div class="row g-3 mb-3">
               <div class="col-md-6">
                 <label class="auth-label">Monthly Income</label>
-                <input type="number" name="monthly_income" class="form-control" placeholder="50000">
+                <div class="input-group">
+                  <span class="input-group-text" style="background:#f0fdf4;color:#16a34a;">
+                    <i class="bi bi-arrow-up-circle"></i>
+                  </span>
+                  <input type="number" name="monthly_income" class="form-control" placeholder="50000">
+                </div>
               </div>
+
               <div class="col-md-6">
                 <label class="auth-label">Monthly Expense</label>
-                <input type="number" name="monthly_expense" class="form-control" placeholder="30000">
+                <div class="input-group">
+                  <span class="input-group-text" style="background:#fef2f2;color:#dc2626;">
+                    <i class="bi bi-arrow-down-circle"></i>
+                  </span>
+                  <input type="number" name="monthly_expense" class="form-control" placeholder="30000">
+                </div>
               </div>
             </div>
 
-            <!-- IMAGE -->
+            <!-- PROFILE IMAGE -->
             <div class="mb-3">
               <label class="auth-label">Profile Picture</label>
-              <input type="file" name="profile_pic" class="form-control" onchange="previewPic(this)">
-              <img id="preview" class="mt-2" style="width:60px; display:none;">
+              <div class="input-group">
+                <span class="input-group-text auth-input-icon">
+                  <i class="bi bi-image"></i>
+                </span>
+                <input type="file" name="profile_pic" class="form-control" onchange="previewPic(this)">
+              </div>
+
+              <img id="preview" class="mt-2" style="width:70px;height:70px;border-radius:50%;object-fit:cover;display:none;border:2px solid #e2e8f0;">
             </div>
 
             <!-- PASSWORD -->
             <div class="row g-3 mb-4">
               <div class="col-md-6">
                 <label class="auth-label">Password</label>
-                <input type="password" name="password1" id="pass1" class="form-control" required>
+                <div class="input-group">
+                  <span class="input-group-text auth-input-icon">
+                    <i class="bi bi-lock"></i>
+                  </span>
+                  <input type="password" name="password1" id="pass1" class="form-control" required>
+                </div>
               </div>
+
               <div class="col-md-6">
                 <label class="auth-label">Confirm Password</label>
-                <input type="password" name="password2" id="pass2" class="form-control" required>
+                <div class="input-group">
+                  <span class="input-group-text auth-input-icon">
+                    <i class="bi bi-lock-fill"></i>
+                  </span>
+                  <input type="password" name="password2" id="pass2" class="form-control" required>
+                </div>
               </div>
             </div>
 
@@ -93,16 +144,16 @@
             </div>
             {% endif %}
 
-            <!-- BUTTON -->
-            <button type="submit" class="auth-btn">
-              Create Account
+            <!-- BUTTON (same style as company) -->
+            <button type="submit" class="auth-btn auth-btn-blue">
+              <i class="bi bi-person-check"></i> Create Account
             </button>
 
           </form>
 
           <p class="auth-bottom-link">
             Already have an account?
-            <a href="{% url 'accounts:individual_login' %}">Login</a>
+            <a href="{% url 'accounts:individual_login' %}" class="blue">Login</a>
           </p>
         </div>
 
