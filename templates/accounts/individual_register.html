@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body_class %}auth-page{% endblock %}
+
+
+{% block content %}
+
+<section class="auth-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-7 col-md-9">
+
+        <!-- HEADER -->
+        <div class="text-center mb-4">
+          <div class="auth-icon blue">
+            <i class="bi bi-person-fill"></i>
+          </div>
+          <h2 class="auth-title">Create Individual Account</h2>
+          <p class="auth-subtitle">Track your personal finances with ease</p>
+        </div>
+
+        <!-- FORM CARD -->
+        <div class="auth-card">
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- NAME -->
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label class="auth-label">First Name</label>
+                <input type="text" name="first_name" class="form-control" placeholder="John" required>
+              </div>
+              <div class="col-md-6">
+                <label class="auth-label">Last Name</label>
+                <input type="text" name="last_name" class="form-control" placeholder="Doe" required>
+              </div>
+            </div>
+
+            <!-- EMAIL -->
+            <div class="mb-3">
+              <label class="auth-label">Email</label>
+              <input type="email" name="email" class="form-control" placeholder="john@example.com" required>
+            </div>
+
+            <!-- PROFESSION -->
+            <div class="mb-3">
+              <label class="auth-label">Profession</label>
+              <input type="text" name="profession" class="form-control" placeholder="Software Engineer">
+            </div>
+
+            <!-- INCOME SOURCE -->
+            <div class="mb-3">
+              <label class="auth-label">Income Source</label>
+              <input type="text" name="income_source" class="form-control" placeholder="Salary / Freelance">
+            </div>
+
+            <!-- INCOME + EXPENSE -->
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label class="auth-label">Monthly Income</label>
+                <input type="number" name="monthly_income" class="form-control" placeholder="50000">
+              </div>
+              <div class="col-md-6">
+                <label class="auth-label">Monthly Expense</label>
+                <input type="number" name="monthly_expense" class="form-control" placeholder="30000">
+              </div>
+            </div>
+
+            <!-- IMAGE -->
+            <div class="mb-3">
+              <label class="auth-label">Profile Picture</label>
+              <input type="file" name="profile_pic" class="form-control" onchange="previewPic(this)">
+              <img id="preview" class="mt-2" style="width:60px; display:none;">
+            </div>
+
+            <!-- PASSWORD -->
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <label class="auth-label">Password</label>
+                <input type="password" name="password1" id="pass1" class="form-control" required>
+              </div>
+              <div class="col-md-6">
+                <label class="auth-label">Confirm Password</label>
+                <input type="password" name="password2" id="pass2" class="form-control" required>
+              </div>
+            </div>
+
+            <!-- ERRORS -->
+            {% if form.errors %}
+            <div class="alert alert-danger">
+              {{ form.errors }}
+            </div>
+            {% endif %}
+
+            <!-- BUTTON -->
+            <button type="submit" class="auth-btn">
+              Create Account
+            </button>
+
+          </form>
+
+          <p class="auth-bottom-link">
+            Already have an account?
+            <a href="{% url 'accounts:individual_login' %}">Login</a>
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function previewPic(input){
+  const img = document.getElementById('preview');
+  if(input.files && input.files[0]){
+    img.src = URL.createObjectURL(input.files[0]);
+    img.style.display = 'block';
+  }
+}
+</script>
+{% endblock %}
