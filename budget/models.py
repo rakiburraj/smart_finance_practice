@@ -1,20 +1,20 @@
 from django.db import models
-from django.conf import settings
 from department.models import Department
 
-class BudgetRequest(models.Model):
-    STATUS_CHOICES = [
-        ('pending', 'Pending'),
-        ('approved', 'Approved'),
-        ('rejected', 'Rejected'),
-    ]
-    department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='budget_requests')
-    requested_amount = models.DecimalField(max_digits=12, decimal_places=2)
-    justification = models.TextField()
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
-    request_date = models.DateTimeField(auto_now_add=True)
-    response_date = models.DateTimeField(blank=True, null=True)
-    approved_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
+class MonthlyBudgetHistory(models.Model):
+    department     = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='budget_history')
+    year           = models.IntegerField()
+    month          = models.IntegerField()
+    allocated      = models.DecimalField(max_digits=12, decimal_places=2)
+    total_expense  = models.DecimalField(max_digits=12, decimal_places=2)
+    total_income   = models.DecimalField(max_digits=12, decimal_places=2)
+    saved          = models.DecimalField(max_digits=12, decimal_places=2)
+    carried_over   = models.DecimalField(max_digits=12, decimal_places=2)
+    created_at     = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['-request_date']
+        ordering = ['-year', '-month']
+        unique_together = ['department', 'year', 'month']
+
+    def __str__(self):
+        return f"{self.department.name} — {self.month}/{self.year}"
